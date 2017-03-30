@@ -11,14 +11,14 @@ docker pull epochmodteam/arma3epochserver
 
 3. Then start the server:
 ```
-docker run --rm -e STEAM_USERNAME='your@email.net' -e STEAM_PASSWORD='YourPassW0rd' --privileged -p 2302-2405:2302-2405/udp -it epochmodteam/arma3epochserver
+docker run --rm -e STEAM_USERNAME='your@email.net' -e STEAM_PASSWORD='YourPassW0rd' --privileged -p 2302-2305:2302-2305/udp -it epochmodteam/arma3epochserver
 ```
 
 Change the STEAM_USERNAME and STEAM_PASSWORD before running, as you must login to be able to download Arma 3 server files and workshop mods.
 
 If you want to persist data add the ```-v C:\Docker\data:/data``` option below and change the folder "C:\Docker\data" to a location you want to store the redis database.
 ```
-docker run --rm -e STEAM_USERNAME='your@email.net' -e STEAM_PASSWORD='YourPassW0rd' --privileged -v C:\Docker\data:/data -p 2302-2405:2302-2405/udp -it epochmodteam/arma3epochserver
+docker run --rm -e STEAM_USERNAME='your@email.net' -e STEAM_PASSWORD='YourPassW0rd' --privileged -v C:\Docker\data:/data -p 2302-2305:2302-2305/udp -it epochmodteam/arma3epochserver
 ```
 
 You can alternatively add a "credentials" file to the location you are running the command from instead specifying ```-e STEAM_USERNAME='your@email.net' -e STEAM_PASSWORD='YourPassW0rd'``` via command line.
