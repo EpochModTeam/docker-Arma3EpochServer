@@ -100,12 +100,12 @@ cd /arma3
 
 #start arma3server arma3serverprofiling
 
-FILE=arma3serverprofiling
-if [ -f $FILE ]; then
-   echo "using profiling test build"
+FILE=arma3server
+if [ -f "$FILE" ]; then
+   ./$FILE -port=2302 -profiles=/sc -mod="$ARMAMODS" -serverMod="$ARMASERVERMODS" -config="/arma3/sc/server.cfg" -cfg="/arma3/sc/basic.cfg" -name=SC -world=empty -autoinit
 else
-   FILE=arma3server
+   echo "Cannot find $FILE"
 fi
 
-./$FILE -port=2302 -profiles=/sc -mod="$ARMAMODS" -serverMod="$ARMASERVERMODS" -config="/arma3/sc/server.cfg" -cfg="/arma3/sc/basic.cfg" -name=SC -world=empty -autoinit
+
 
