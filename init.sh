@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# docker run --rm --env-file credentials --privileged -v G:\Projects\Docker\ubuntu\data:/data -p 2302-2305:2302-2305/udp -i -t ubuntu:latest bash /data/install_min.sh
 ARMASVRPATH=/arma3
 ARMAAPPID=107410
 
@@ -8,16 +7,10 @@ ARMAAPPID=107410
 mods[455221958]='@epoch' 
 servermods[558243173]='@epochhive'
 
-REDISAUTHPASS=Changeme9832
-
-ARMABRANCH=profiling
-ARMABRANCHPW=CautionSpecialProfilingAndTestingBranchArma3
-
 #make redis config save server database to exposed /data folder to persist data on host
-sed -i 's@dir /var/lib/redis@dir /data@g' /etc/redis/redis.conf
-
-#sed -i "s@# requirepass foobared@requirepass $REDISAUTHPASS@g" /etc/redis/redis.conf
-
+if [ -d "/data" ]; then
+	sed -i 's@dir /var/lib/redis@dir /data@g' /etc/redis/redis.conf
+fi
 
 #start redis
 service redis-server start
@@ -47,7 +40,7 @@ do
 done
 
 # install arma 3
-/root/steamcmd.sh +login $STEAM_USERNAME $STEAM_PASSWORD +force_install_dir /arma3 "+app_update 233780 -beta $ARMABRANCH -betapassword $ARMABRANCHPW" $MODLIST validate +quit
+/root/steamcmd.sh +login $STEAM_USERNAME $STEAM_PASSWORD +force_install_dir /arma3 "+app_update 233780" $MODLIST validate +quit
 
 #link common folders
 ln -s $ARMASVRPATH"/mpmissions"  $ARMASVRPATH"/MPMissions"
