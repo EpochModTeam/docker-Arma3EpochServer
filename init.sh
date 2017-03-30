@@ -4,7 +4,7 @@ ARMASVRPATH=/arma3
 ARMAAPPID=107410
 
 #:: Epoch Workshop IDs: Experimental = 455221958 Normal = 421839251
-mods[421839251]='@epoch'
+mods[455221958]='@epoch'
 servermods[601772725]='@epochhive'
 
 #make redis config save server database to exposed /data folder to persist data on host
@@ -75,7 +75,7 @@ do
 		#install server mods
 		ln -s $MODFILE $ARMASVRPATH"/"${servermods[$i]}
    		#special extra install for 558243173
-   		if [ "$i" -eq "558243173" ]; then
+   		if [ "$i" -eq "601772725" ]; then
    			cp -a -v $ARMASVRPATH"/"${servermods[$i]}"/epochah-example.hpp" $ARMASVRPATH"/"${servermods[$i]}"/epochah.hpp"
 			cp -a -v $ARMASVRPATH"/"${servermods[$i]}"/epochconfig-example.hpp" $ARMASVRPATH"/"${servermods[$i]}"/epochconfig.hpp"
 			cp -a -v $ARMASVRPATH"/"${servermods[$i]}"/epochserver-example.ini" $ARMASVRPATH"/"${servermods[$i]}"/epochserver.ini"
