@@ -4,8 +4,8 @@ ARMASVRPATH=/arma3
 ARMAAPPID=107410
 
 #:: Epoch Workshop IDs: Experimental = 455221958 Normal = 421839251
-mods[455221958]='@epoch' 
-servermods[558243173]='@epochhive'
+mods[421839251]='@epoch'
+servermods[601772725]='@epochhive'
 
 #make redis config save server database to exposed /data folder to persist data on host
 if [ -d "/data" ]; then
@@ -106,6 +106,3 @@ if [ -f "$FILE" ]; then
 else
    echo "Cannot find $FILE"
 fi
-
-
-
