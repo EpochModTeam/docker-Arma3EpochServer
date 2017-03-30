@@ -8,8 +8,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update &&\
     apt-get install -y wget lib32gcc1 lib32stdc++6 redis-server binutils
 
-ADD init.sh /home/steam/init.sh
 
-RUN chmod +x /home/steam/init.sh
-
-CMD ["/home/steam/init.sh"]
+ADD init.sh /usr/local/bin/init.sh
+RUN chmod +x /usr/local/bin/init.sh
+CMD ["/usr/local/bin/init.sh"]
