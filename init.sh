@@ -2,7 +2,8 @@
 
 ARMASVRPATH=/arma3
 ARMAAPPID=107410
-RCONPASSWORD=changemen0w
+
+RCONPASSWORD=${RCONPASSWORD:-changemen0w}
 
 #:: Epoch Workshop IDs: Experimental = 455221958 Normal = 421839251
 mods[421839251]='@epoch'
@@ -45,7 +46,7 @@ done
 /root/steamcmd.sh +login $STEAM_USERNAME $STEAM_PASSWORD +force_install_dir /arma3 "+app_update 233780" $MODLIST validate +quit
 
 # move into arma3 folder
-cd /arma3
+cd $ARMASVRPATH
 # try to support 64 bit...
 FILE=arma3server_x64
 ARCH="_x64"
@@ -113,7 +114,7 @@ do
 done
 
 # move back into arma3 folder
-cd /arma3
+cd $ARMASVRPATH
 if [ -f "$FILE" ]; then
    ./$FILE -port=2302 -profiles=/sc -mod="$ARMAMODS" -serverMod="$ARMASERVERMODS" -config="/arma3/sc/server.cfg" -cfg="/arma3/sc/basic.cfg" -name=SC -world=empty -autoinit
 else
