@@ -1,5 +1,4 @@
 #!/bin/bash
-set -ex
 
 ARMASVRPATH=/arma3
 ARMAAPPID=107410
@@ -59,21 +58,6 @@ fi
 ln -s $ARMASVRPATH"/mpmissions"  $ARMASVRPATH"/MPMissions"
 ln -s $ARMASVRPATH"/keys"  $ARMASVRPATH"/Keys"
 
-#convert to lower case
-toLower() 
-{
-	for x in `ls`
-    do
-    	if [ ! -f $x ]; then
-    		continue
-   		fi
-   		lc=`echo $x | tr '[:upper:]' '[:lower:]'`
-   		if [ $lc != $x ]; then
-    		mv -i $x $lc
-    	fi
-    done
-}
-
 # perform install of mods
 for i in "${!mods[@]}"
 do
@@ -81,7 +65,7 @@ do
 	if [ -d "$MODFILE" ]; then
 		# convert to mod to lowercase
 		cd $MODFILE
-		toLower 
+		ls | while read upName; do loName=`echo "${upName}" | tr '[:upper:]' '[:lower:]'`; mv "$upName" "$loName"; done
    		# install client mods
 		ln -s $MODFILE $ARMASVRPATH"/"${mods[$i]}
 		# copy latest key to server
@@ -98,7 +82,7 @@ do
 	if [ -d "$MODFILE" ]; then
 		# convert to mod to lowercase
 		cd $MODFILE
-		toLower
+		ls | while read upName; do loName=`echo "${upName}" | tr '[:upper:]' '[:lower:]'`; mv "$upName" "$loName"; done
 		#install server mods
 		ln -s $MODFILE $ARMASVRPATH"/"${servermods[$i]}
    		#special extra install for 558243173
