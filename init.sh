@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 
 ARMASVRPATH=/arma3
 ARMAAPPID=107410
