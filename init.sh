@@ -62,7 +62,16 @@ ln -s $ARMASVRPATH"/keys"  $ARMASVRPATH"/Keys"
 #convert to lower case
 toLower() 
 {
-ls | while read upName; do loName=`echo "${upName}" | tr '[:upper:]' '[:lower:]'`; mv "$upName" "$loName"; done
+	for x in `ls`
+    do
+    	if [ ! -f $x ]; then
+    		continue
+   		fi
+   		lc=`echo $x | tr '[:upper:]' '[:lower:]'`
+   		if [ $lc != $x ]; then
+    		mv -i $x $lc
+    	fi
+    done
 }
 
 # perform install of mods
