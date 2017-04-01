@@ -58,6 +58,11 @@ fi
 ln -s $ARMASVRPATH"/mpmissions"  $ARMASVRPATH"/MPMissions"
 ln -s $ARMASVRPATH"/keys"  $ARMASVRPATH"/Keys"
 
+#convert to lower case
+toLower() 
+{
+ls | while read upName; do loName=`echo "${upName}" | tr '[:upper:]' '[:lower:]'`; if [ ! "$upName" -eq "$loName" ]; then mv "$upName" "$loName"; fi; done
+}
 
 # perform install of mods
 for i in "${!mods[@]}"
@@ -66,8 +71,7 @@ do
 	if [ -d "$MODFILE" ]; then
 		# convert to mod to lowercase
 		cd $MODFILE
-		ls | while read upName; do loName=`echo "${upName}" | tr '[:upper:]' '[:lower:]'`; if [ ! "$upName" -eq "$loName" ]; then mv "$upName" "$loName"; fi
- done
+		toLower 
    		# install client mods
 		ln -s $MODFILE $ARMASVRPATH"/"${mods[$i]}
 		# copy latest key to server
@@ -84,7 +88,7 @@ do
 	if [ -d "$MODFILE" ]; then
 		# convert to mod to lowercase
 		cd $MODFILE
-		ls | while read upName; do loName=`echo "${upName}" | tr '[:upper:]' '[:lower:]'`; if [ ! "$upName" -eq "$loName" ]; then mv "$upName" "$loName"; fi
+		toLower
 		#install server mods
 		ln -s $MODFILE $ARMASVRPATH"/"${servermods[$i]}
    		#special extra install for 558243173
