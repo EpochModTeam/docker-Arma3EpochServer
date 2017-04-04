@@ -3,6 +3,11 @@
 ARMASVRPATH=/arma3
 ARMAAPPID=107410
 
+RCONPASSWORD=${RCONPASSWORD:-changemen0w}
+
+STEAM_USERNAME=${STEAM_USERNAME:-anonymous}
+STEAM_PASSWORD=${STEAM_PASSWORD:-}
+
 #:: Epoch Workshop IDs: Experimental = 455221958 Normal = 421839251
 mods[421839251]='@epoch'
 servermods[601772725]='@epochhive'
@@ -42,10 +47,19 @@ done
 # install arma 3
 /root/steamcmd.sh +login $STEAM_USERNAME $STEAM_PASSWORD +force_install_dir /arma3 "+app_update 233780" $MODLIST validate +quit
 
+# move into arma3 folder
+cd $ARMASVRPATH
+# try to support 64 bit...
+FILE=arma3server_x64
+ARCH="_x64"
+if [ ! -f "$FILE" ]; then
+   FILE=arma3server
+   ARCH=""
+fi
+
 #link common folders
 ln -s $ARMASVRPATH"/mpmissions"  $ARMASVRPATH"/MPMissions"
 ln -s $ARMASVRPATH"/keys"  $ARMASVRPATH"/Keys"
-
 
 # perform install of mods
 for i in "${!mods[@]}"
@@ -75,19 +89,25 @@ do
 		#install server mods
 		ln -s $MODFILE $ARMASVRPATH"/"${servermods[$i]}
    		#special extra install for 558243173
-   		if [ "$i" -eq "601772725" ]; then
-   			cp -a -v $ARMASVRPATH"/"${servermods[$i]}"/epochah-example.hpp" $ARMASVRPATH"/"${servermods[$i]}"/epochah.hpp"
-			cp -a -v $ARMASVRPATH"/"${servermods[$i]}"/epochconfig-example.hpp" $ARMASVRPATH"/"${servermods[$i]}"/epochconfig.hpp"
-			cp -a -v $ARMASVRPATH"/"${servermods[$i]}"/epochserver-example.ini" $ARMASVRPATH"/"${servermods[$i]}"/epochserver.ini"
+        if [ "$i" -eq "601772725" ] || [ "$i" -eq "558243173" ]; then
+   			cp $ARMASVRPATH"/"${servermods[$i]}"/epochah-example.hpp" $ARMASVRPATH"/"${servermods[$i]}"/epochah.hpp"
+			cp $ARMASVRPATH"/"${servermods[$i]}"/epochconfig-example.hpp" $ARMASVRPATH"/"${servermods[$i]}"/epochconfig.hpp"
+			cp $ARMASVRPATH"/"${servermods[$i]}"/epochserver-example.ini" $ARMASVRPATH"/"${servermods[$i]}"/epochserver.ini"
 			#sed -i "s@Password = foobared@Password = $REDISAUTHPASS@g" $ARMASVRPATH"/${servermods[$i]}/EpochServer.ini"
 			#:: copy config profile and battleye files to live
-			mkdir -p $ARMASVRPATH"/sc"
+			# mkdir -p $ARMASVRPATH"/sc"
 			cp -a -v $ARMASVRPATH"/"${servermods[$i]}"/sc/." $ARMASVRPATH"/sc"
-			cp -a -v $ARMASVRPATH"/sc/server-example.cfg" $ARMASVRPATH"/sc/server.cfg"
-			cp -a -v $ARMASVRPATH"/sc/basic-example.cfg" $ARMASVRPATH"/sc/basic.cfg"
-			cp -a -v $ARMASVRPATH"/sc/battleye/example-beserver.cfg" $ARMASVRPATH"/sc/battleye/beserver.cfg"
+			cp $ARMASVRPATH"/sc/server-example.cfg" $ARMASVRPATH"/sc/server.cfg"
+			cp $ARMASVRPATH"/sc/basic-example.cfg" $ARMASVRPATH"/sc/basic.cfg"
+			cp $ARMASVRPATH"/sc/battleye/example-beserver"$ARCH".cfg" $ARMASVRPATH"/sc/battleye/beserver"$ARCH".cfg"
+
+			# setup rcon 
+			# RConPassword changemen0w
+			sed -i "s@RConPassword changemen0w@RConPassword $RCONPASSWORD@g" $ARMASVRPATH"/sc/battleye/beserver"$ARCH".cfg"
+			sed -i "s@Password = changeme@Password = $RCONPASSWORD@g" $ARMASVRPATH"/"${servermods[$i]}"/epochserver.ini"
+
 			#:: update mission files
-			mkdir -p $ARMASVRPATH"/mpmissions"
+			#mkdir -p $ARMASVRPATH"/mpmissions"
 			cp -a -v $ARMASVRPATH"/"${servermods[$i]}"/mpmissions/." $ARMASVRPATH"/mpmissions"
    		fi
 	else
@@ -95,12 +115,8 @@ do
 	fi
 done
 
-# move into arma3 folder
-cd /arma3
-
-#start arma3server arma3serverprofiling
-
-FILE=arma3server
+# move back into arma3 folder
+cd $ARMASVRPATH
 if [ -f "$FILE" ]; then
    ./$FILE -port=2302 -profiles=/sc -mod="$ARMAMODS" -serverMod="$ARMASERVERMODS" -config="/arma3/sc/server.cfg" -cfg="/arma3/sc/basic.cfg" -name=SC -world=empty -autoinit
 else
