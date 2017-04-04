@@ -10,6 +10,7 @@ STEAM_PASSWORD=${STEAM_PASSWORD:-}
 
 #:: Epoch Workshop IDs: Experimental = 455221958 Normal = 421839251
 mods[421839251]='@epoch'
+#:: Epoch Server Workshop IDs: Experimental = 558243173 Normal = 601772725 
 servermods[601772725]='@epochhive'
 
 #make redis config save server database to exposed /data folder to persist data on host
