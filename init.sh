@@ -10,7 +10,6 @@ STEAM_PASSWORD=${STEAM_PASSWORD:-}
 
 #:: Epoch Workshop IDs: Experimental = 455221958 Normal = 421839251
 mods[421839251]='@epoch'
-#:: Epoch Server Workshop IDs: Experimental = 558243173 Normal = 601772725
 servermods[601772725]='@epochhive'
 
 #make redis config save server database to exposed /data folder to persist data on host
@@ -90,7 +89,7 @@ do
 		#install server mods
 		ln -s $MODFILE $ARMASVRPATH"/"${servermods[$i]}
    		#special extra install for 558243173
-   		if [ "$i" -eq "601772725" ] || [ "$i" -eq "558243173" ]; then
+        if [ "$i" -eq "601772725" ] || [ "$i" -eq "558243173" ]; then
    			cp $ARMASVRPATH"/"${servermods[$i]}"/epochah-example.hpp" $ARMASVRPATH"/"${servermods[$i]}"/epochah.hpp"
 			cp $ARMASVRPATH"/"${servermods[$i]}"/epochconfig-example.hpp" $ARMASVRPATH"/"${servermods[$i]}"/epochconfig.hpp"
 			cp $ARMASVRPATH"/"${servermods[$i]}"/epochserver-example.ini" $ARMASVRPATH"/"${servermods[$i]}"/epochserver.ini"
