@@ -21,7 +21,8 @@ If you want to persist data add the ```-v C:\Docker\data:/data``` option below a
 docker run --rm -e STEAM_USERNAME='your@email.net' -e STEAM_PASSWORD='YourPassW0rd' --privileged -v C:\Docker\data:/data -p 2302-2306:2302-2306/udp -it epochmodteam/arma3epochserver
 ```
 
-You can alternatively add a "credentials" file to the location you are running the command from instead specifying ```-e STEAM_USERNAME='your@email.net' -e STEAM_PASSWORD='YourPassW0rd'``` via command line.
+You can alternatively add a "credentials" file to the location you are running the command from and instead of specifying ```-e STEAM_USERNAME='your@email.net' -e STEAM_PASSWORD='YourPassW0rd'``` via command line use:
+```--env-file credentials```
 
 ```
 STEAM_USERNAME=your@email.net
