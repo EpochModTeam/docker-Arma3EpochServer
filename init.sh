@@ -2,6 +2,7 @@
 
 ARMASVRPATH=/arma3
 ARMAAPPID=107410
+ARMASERVERAPPID=${ARMASERVERAPPID:-233780}
 
 RCONPASSWORD=${RCONPASSWORD:-changemen0w}
 
@@ -46,7 +47,7 @@ do
 done
 
 # install arma 3
-/root/steamcmd.sh +login $STEAM_USERNAME $STEAM_PASSWORD +force_install_dir /arma3 "+app_update 233780" $MODLIST validate +quit
+/root/steamcmd.sh +login $STEAM_USERNAME $STEAM_PASSWORD +force_install_dir /arma3 "+app_update %ARMASERVERAPPID%" $MODLIST validate +quit
 
 # move into arma3 folder
 cd $ARMASVRPATH
