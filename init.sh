@@ -64,7 +64,7 @@ ln -s $ARMASVRPATH"/keys"  $ARMASVRPATH"/Keys"
 # perform install of mods
 for i in "${!mods[@]}"
 do
-	MODFILE="/root/steamapps/workshop/content/107410/$i"
+	MODFILE="/arma3/steamapps/workshop/content/107410/$i"
 	if [ -d "$MODFILE" ]; then
 		# convert to mod to lowercase
 		cd $MODFILE
@@ -81,7 +81,7 @@ done
 
 for i in "${!servermods[@]}"
 do
-	MODFILE="/root/steamapps/workshop/content/107410/$i"
+	MODFILE="/arma3/steamapps/workshop/content/107410/$i"
 	if [ -d "$MODFILE" ]; then
 		# convert to mod to lowercase
 		cd $MODFILE
