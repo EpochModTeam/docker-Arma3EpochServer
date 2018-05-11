@@ -28,3 +28,9 @@ You can alternatively add a "credentials" file to the location you are running t
 STEAM_USERNAME=your@email.net
 STEAM_PASSWORD=YourPassW0rd
 ```
+
+To add scripts and additional files, mount the folder with your content and add your commands to the ```PRESCRIPT``` variable:
+```
+docker run --rm -e STEAM_USERNAME='your@email.net' -e STEAM_PASSWORD='YourPassW0rd' --privileged -v C:\yourFiles\:/extraFiles -e PRESCRIPT"cp /extraFiles/epoch.Altis.pbo /arma3/mpmissions" -p 2302-2306:2302-2306/udp -it epochmodteam/arma3epochserver 
+```
+This will execute before running the server.

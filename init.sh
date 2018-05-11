@@ -18,7 +18,7 @@ if [ -d "/data" ]; then
 fi
 
 #start redis
-service redis-server start
+redis-server --daemonize yes
 
 
 cd /root
@@ -114,6 +114,8 @@ do
 	   echo "ERROR: Mod files not found for $i"
 	fi
 done
+
+eval ${PRESCRIPT}
 
 # move back into arma3 folder
 cd $ARMASVRPATH
